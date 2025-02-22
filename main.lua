@@ -5,9 +5,10 @@ function love.load()
 
     -- fit the screen --
     local screenWidth, screenHeight = love.window.getDesktopDimensions()
-    love.window.setMode(screenWidth, screenHeight, {fullscreen = false, resizable = true})
+    -- love.window.setMode(screenWidth, screenHeight, {fullscreen = false, resizable = true})
 
     love.graphics.setDefaultFilter("nearest", "nearest")
+
     love.graphics.setBackgroundColor(1, 1, 1)
 
     _G.guy = {}
@@ -76,7 +77,7 @@ function love.update(dt)
 end
 
 function love.draw()
-    guy.anim:draw(guy.spriteSheet, guy.x, guy.y, nil, 3)
+    guy.anim:draw(guy.spriteSheet, guy.x, guy.y, nil, 5)
     love.graphics.print("x: " .. guy.x, 0, 0)
     love.graphics.print("y: " .. guy.y, 0, 15)
 
