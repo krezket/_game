@@ -3,14 +3,16 @@ _G.love = require("love")
 function love.load()
     _G.anim8 = require 'libraries/anim8'
 
-    -- fit the screen --
+    -- FIT THE SCREEN --
     local screenWidth, screenHeight = love.window.getDesktopDimensions()
     love.window.setMode(screenWidth, screenHeight, {fullscreen = false, resizable = true})
 
+    -- SCALE GUY --
     love.graphics.setDefaultFilter("nearest", "nearest")
 
     love.graphics.setBackgroundColor(1, 1, 1)
 
+    -- GUY TABLE --
     _G.guy = {}
     guy.x = screenWidth / 2
     guy.y = 300
@@ -24,7 +26,9 @@ function love.load()
     guy.animations.up = anim8.newAnimation( guy.grid('1-4', 4), 0.2 )
 
     guy.anim = guy.animations.down
+    ----------------------------------------------------------
 
+    -- WORLD (CIRCLE) TABLE --
     _G.circle = {}
     circle.x = screenWidth / 2
     circle.y = screenHeight * 2.2
@@ -38,16 +42,23 @@ end
 function love.update(dt)
     local isMoving = false
 
-    -- Rotate left
+    -- ROTATE RIGHT
     if love.keyboard.isDown("left") then
         circle.angle = circle.angle + circle.speed * dt
     end
-
-    -- Rotate right
+    -- ROTATE LEFT
     if love.keyboard.isDown("right") then
         circle.angle = circle.angle - circle.speed * dt
     end
 
+    -- SPRINT --
+    if love.keyboard.isDown("lshift") then
+        guy.speed = 10
+    else
+        guy.speed = 3
+    end
+
+    -- MOVEMENT --
     if love.keyboard.isDown("right") then
         guy.x = guy.x + guy.speed
         guy.anim = guy.animations.right
@@ -69,6 +80,7 @@ function love.update(dt)
         isMoving = true
     end
 
+    -- STOP ANIMATION --
     if isMoving == false then
         guy.anim:gotoFrame(2)
     end
@@ -77,7 +89,9 @@ function love.update(dt)
 end
 
 function love.draw()
+    -- DRAW GUY --
     guy.anim:draw(guy.spriteSheet, guy.x, guy.y, nil, 5)
+
     love.graphics.print("x: " .. guy.x, 0, 0)
     love.graphics.print("y: " .. guy.y, 0, 15)
 
