@@ -5,14 +5,14 @@ function love.load()
 
     -- fit the screen --
     local screenWidth, screenHeight = love.window.getDesktopDimensions()
-    -- love.window.setMode(screenWidth, screenHeight, {fullscreen = false, resizable = true})
+    love.window.setMode(screenWidth, screenHeight, {fullscreen = false, resizable = true})
 
     love.graphics.setDefaultFilter("nearest", "nearest")
 
     love.graphics.setBackgroundColor(1, 1, 1)
 
     _G.guy = {}
-    guy.x = 400
+    guy.x = screenWidth / 2
     guy.y = 300
     guy.speed = 3
     guy.spriteSheet = love.graphics.newImage("sprites/new-player-sheet.png")
@@ -26,8 +26,8 @@ function love.load()
     guy.anim = guy.animations.down
 
     _G.circle = {}
-    circle.x = love.graphics.getWidth() / 2
-    circle.y = love.graphics.getHeight() * 2.5
+    circle.x = screenWidth / 2
+    circle.y = screenHeight * 2.2
     circle.radius = screenWidth
     circle.angle = 0 -- Initial angle
     circle.speed = 0.3 -- Rotation speed
