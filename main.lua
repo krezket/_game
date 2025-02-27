@@ -4,18 +4,22 @@ Push = require("libraries.push")
 function love.load()
     _G.anim8 = require 'libraries/anim8'
 
-    -- FIT THE SCREEN --
+    -- SCREEN --
     love.graphics.setBackgroundColor(1, 1, 1)
-    local screenWidth, screenHeight = love.window.getDesktopDimensions()
-    -- love.window.setMode(screenWidth, screenHeight, {fullscreen = false, resizable = true})
+    local windowWidth, windowHeight = love.window.getMode()
+    love.window.setMode(windowWidth, windowHeight, {fullscreen = false})
+    local cowCenterX = windowWidth / 2
+    local cowCenterY = windowHeight / 2
+    -- -- -- --
 
     -- SCALE COW --
     love.graphics.setDefaultFilter("nearest", "nearest")
+    -- -- -- --
 
     -- COW TABLE --
     _G.cow = {}
-    cow.x = 0
-    cow.y = 0
+    cow.x = cowCenterX
+    cow.y = cowCenterY
     cow.speed = 5
     cow.spriteSheet = love.graphics.newImage("sprites/cow.png")
     cow.grid = anim8.newGrid(640, 1136, cow.spriteSheet:getWidth(), cow.spriteSheet:getHeight())
@@ -24,8 +28,8 @@ function love.load()
     cow.animations.up = anim8.newAnimation( cow.grid('1-7', 1), 0.1 )
     cow.animations.left = anim8.newAnimation( cow.grid('1-7', 1), 0.1 )
     cow.animations.right = anim8.newAnimation( cow.grid('1-7', 1), 0.1 )
-
     cow.anim = cow.animations.down
+    -- -- -- --
 end
 
 function love.update(dt)
@@ -69,8 +73,9 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.scale(scale, scale)
     -- DRAW COW --
-    cow.anim:draw(cow.spriteSheet, cow.x, cow.y, nil, 0.5, 0.5)
+    cow.anim:draw(cow.spriteSheet, cow.x, cow.y, nil, 0.1, 0.1)
 
     love.graphics.print("x: " .. cow.x, 0, 0)
     love.graphics.print("y: " .. cow.y, 0, 15)
