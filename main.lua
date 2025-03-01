@@ -6,10 +6,10 @@ function love.load()
 
     -- SCREEN --
     love.graphics.setBackgroundColor(1, 1, 1)
-    local windowWidth, windowHeight = love.window.getMode()
-    love.window.setMode(windowWidth, windowHeight, {fullscreen = false})
-    local cowCenterX = windowWidth / 2
-    local cowCenterY = windowHeight / 2
+    local screenWidth, screenHeight = love.window.getDesktopDimensions()
+    love.window.setMode(screenWidth, screenHeight)
+    local cowCenterX = screenWidth / 2
+    local cowCenterY = screenHeight / 2
     -- -- -- --
 
     -- SCALE COW --
@@ -75,7 +75,7 @@ end
 function love.draw()
     love.graphics.scale(scale, scale)
     -- DRAW COW --
-    cow.anim:draw(cow.spriteSheet, cow.x, cow.y, nil, 0.1, 0.1)
+    cow.anim:draw(cow.spriteSheet, cow.x, cow.y, nil, 0.2, 0.2)
 
     love.graphics.print("x: " .. cow.x, 0, 0)
     love.graphics.print("y: " .. cow.y, 0, 15)
